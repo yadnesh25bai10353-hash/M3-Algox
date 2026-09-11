@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import BotDetailModal from './BotDetailModal';
+import { useAuth } from '../context/AuthContext';
 
 const m3AlgoBot = {
   id: 100,
@@ -40,6 +41,7 @@ const m3AlgoBot = {
 const PurchaseBotSection = () => {
   const [selectedBot, setSelectedBot] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user } = useAuth() || {};
 
   const handleViewDetails = () => {
     setSelectedBot(m3AlgoBot);
@@ -93,12 +95,22 @@ const PurchaseBotSection = () => {
             </div>
 
             {/* CTA */}
-            <button
-              onClick={handleViewDetails}
-              className="w-full bg-accent hover:bg-accent-dark text-white font-semibold py-3 rounded-lg transition-all duration-200 active:scale-[0.97] shadow-lg shadow-accent/20 hover:shadow-accent/30"
-            >
-              View Details
-            </button>
+            {user?.botPurchased ? (
+              <div className="w-full bg-green-500/20 text-green-400 border border-green-500/30 text-center font-bold py-3 rounded-lg flex items-center justify-center gap-2">
+                <span>✅ Bot Active & Purchased</span>
+              </div>
+            ) : user?.botRequested ? (
+              <div className="w-full bg-accent-gold/20 text-accent-gold border border-accent-gold/30 text-center font-bold py-3 rounded-lg flex items-center justify-center gap-2">
+                <span>⏳ Request Pending Approval</span>
+              </div>
+            ) : (
+              <button
+                onClick={handleViewDetails}
+                className="w-full bg-accent hover:bg-accent-dark text-white font-semibold py-3 rounded-lg transition-all duration-200 active:scale-[0.97] shadow-lg shadow-accent/20 hover:shadow-accent/30"
+              >
+                View Details & Request
+              </button>
+            )}
           </div>
         </div>
 
