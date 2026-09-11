@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#111827] border-t border-[#1a2234]/50 mt-auto text-gray-300 text-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           {/* Column 1: Brand */}
           <div className="space-y-4">
             <Link to="/" className="font-heading font-bold text-xl tracking-tight text-white inline-block">
@@ -16,35 +16,13 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Column 2: Products */}
-          <div>
-            <h3 className="font-heading font-semibold text-white mb-4 uppercase tracking-wider text-xs">Products</h3>
-            <ul className="space-y-3">
-              <li><a href="#bots" className="hover:text-[#3b82f6] transition-colors">M3 Algo Bot</a></li>
-              <li><a href="#pricing" className="hover:text-[#3b82f6] transition-colors">Pricing & VPS</a></li>
-              <li><Link to="/how-it-works" className="hover:text-[#3b82f6] transition-colors">How It Works</Link></li>
-            </ul>
-          </div>
-
-          {/* Column 3: Company */}
-          <div>
-            <h3 className="font-heading font-semibold text-white mb-4 uppercase tracking-wider text-xs">Company</h3>
-            <ul className="space-y-3">
-              <li><Link to="/about" className="hover:text-[#3b82f6] transition-colors">About Us</Link></li>
-              <li><Link to="/careers" className="hover:text-[#3b82f6] transition-colors">Careers</Link></li>
-              <li><Link to="/contact" className="hover:text-[#3b82f6] transition-colors">Contact</Link></li>
-              <li><Link to="/blog" className="hover:text-[#3b82f6] transition-colors">Blog</Link></li>
-            </ul>
-          </div>
-
-          {/* Column 4: Legal */}
+          {/* Column 2: Legal */}
           <div>
             <h3 className="font-heading font-semibold text-white mb-4 uppercase tracking-wider text-xs">Legal</h3>
             <ul className="space-y-3">
-              <li><Link to="/terms" className="hover:text-[#3b82f6] transition-colors">Terms of Service</Link></li>
-              <li><Link to="/privacy" className="hover:text-[#3b82f6] transition-colors">Privacy Policy</Link></li>
-              <li><Link to="/refunds" className="hover:text-[#3b82f6] transition-colors">Refund Policy</Link></li>
-              <li><Link to="/risk" className="hover:text-[#3b82f6] transition-colors">Risk Disclosure</Link></li>
+              <li><Link to="/terms" className="hover:text-[#3b82f6] transition-colors text-gray-400">Terms of Service</Link></li>
+              <li><Link to="/privacy" className="hover:text-[#3b82f6] transition-colors text-gray-400">Privacy Policy</Link></li>
+              <li><Link to="/risk" className="hover:text-[#3b82f6] transition-colors text-gray-400">Risk Disclosure</Link></li>
             </ul>
           </div>
         </div>

@@ -22,12 +22,6 @@ const Hero = () => {
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent rounded-full blur-[120px] opacity-20 z-0 pointer-events-none"></div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 text-center">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-800 border border-accent/30 text-sm text-gray-300 mb-8">
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-          Trusted by 3,200+ traders
-        </div>
-
         {/* Headings */}
         <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6 tracking-tight">
           Automate Your Trading with <br className="hidden md:block" />
