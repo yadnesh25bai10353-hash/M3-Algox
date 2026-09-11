@@ -235,7 +235,7 @@ const BotDetailModal = ({ bot, isOpen, onClose }) => {
             <p className="text-white font-bold">30% profit share (every 2 weeks) + ₹1,500 VPS/month</p>
           </div>
           <a
-            href="https://wa.me/917721921093?text=Hi%2C%20I%20am%20interested%20in%20M3%20Algo%20bot.%20Please%20share%20more%20details."
+            href="https://wa.me/917721832978?text=Hi%2C%20I%20am%20interested%20in%20M3%20Algo%20bot.%20Please%20share%20more%20details."
             target="_blank"
             rel="noopener noreferrer"
             className="flex-shrink-0 bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-8 rounded-lg transition-all duration-200 active:scale-[0.97] shadow-lg flex items-center gap-2"

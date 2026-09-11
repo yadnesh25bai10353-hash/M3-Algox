@@ -33,7 +33,7 @@ const PayBill = () => {
 
   const handleWhatsAppRedirect = () => {
     const text = `Hi, I am ${clientName}. I have made the payment of Rs. ${amount} for my bot bill. Please find my payment screenshot attached.`;
-    const whatsappUrl = `https://wa.me/917721921093?text=${encodeURIComponent(text)}`;
+    const whatsappUrl = `https://wa.me/917721832978?text=${encodeURIComponent(text)}`;
     window.open(whatsappUrl, '_blank');
   };
 
