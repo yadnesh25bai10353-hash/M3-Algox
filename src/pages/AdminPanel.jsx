@@ -143,6 +143,7 @@ const AdminPanel = () => {
 
   const navItems = [
     { id: 'dashboard', label: '📊 Dashboard', icon: '📊' },
+    { id: 'requests', label: '🔔 Bot Requests', icon: '🔔' },
     { id: 'users', label: '👥 Users', icon: '👥' },
     { id: 'send-bill', label: '📤 Send Bill', icon: '📤' },
     { id: 'bills', label: '💳 All Bills', icon: '💳' },
@@ -203,6 +204,82 @@ const AdminPanel = () => {
                     </div>
                   ))}
                 </div>
+              )}
+            </div>
+          </div>
+        );
+
+      case 'requests':
+        return (
+          <div className="space-y-6">
+            <h2 className="text-2xl font-heading font-bold text-white">Pending Bot Requests</h2>
+            
+            {/* Desktop Table */}
+            <div className="hidden md:block bg-navy-800 border border-navy-700/50 rounded-xl overflow-hidden">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-navy-900/50 text-gray-400 text-xs uppercase tracking-wider">
+                    <th className="px-4 py-3 text-left">Name</th>
+                    <th className="px-4 py-3 text-left">Email</th>
+                    <th className="px-4 py-3 text-left">Phone</th>
+                    <th className="px-4 py-3 text-center">Status</th>
+                    <th className="px-4 py-3 text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-navy-700/30">
+                  {users.filter(u => u.botRequested).map(u => (
+                    <tr key={u.id} className="hover:bg-navy-700/20 transition-colors">
+                      <td className="px-4 py-3 text-white font-medium">{u.name || '—'}</td>
+                      <td className="px-4 py-3 text-gray-400">{u.email}</td>
+                      <td className="px-4 py-3 text-gray-400">{u.phone || '—'}</td>
+                      <td className="px-4 py-3 text-center">
+                        <span className="px-2 py-0.5 rounded text-xs font-bold bg-accent-gold/20 text-accent-gold border border-accent-gold/30">
+                          🔔 Requested
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-center">
+                        <button
+                          onClick={() => handleToggleBotStatus(u.id, u.botPurchased)}
+                          className="px-3 py-1 rounded text-xs bg-accent-gold hover:bg-yellow-500 text-navy-900 font-bold shadow-lg shadow-accent-gold/20 transition-colors"
+                        >
+                          Approve Request
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {users.filter(u => u.botRequested).length === 0 && (
+                <p className="text-gray-500 text-sm text-center py-8">No pending requests right now.</p>
+              )}
+            </div>
+
+            {/* Mobile Cards */}
+            <div className="md:hidden space-y-3">
+              {users.filter(u => u.botRequested).map(u => (
+                <div key={u.id} className="bg-navy-800 border border-navy-700/50 rounded-xl p-4 space-y-2">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="text-white font-semibold">{u.name || '—'}</p>
+                      <p className="text-gray-500 text-xs">{u.email}</p>
+                    </div>
+                    <span className="px-2 py-0.5 rounded text-xs font-bold bg-accent-gold/20 text-accent-gold border border-accent-gold/30">
+                      🔔 Requested
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-xs text-gray-500">
+                    <span>📱 {u.phone || '—'}</span>
+                  </div>
+                  <button
+                    onClick={() => handleToggleBotStatus(u.id, u.botPurchased)}
+                    className="w-full mt-2 py-2 rounded-lg text-xs bg-accent-gold hover:bg-yellow-500 text-navy-900 font-bold shadow-lg shadow-accent-gold/20 transition-colors"
+                  >
+                    Approve Request
+                  </button>
+                </div>
+              ))}
+              {users.filter(u => u.botRequested).length === 0 && (
+                <p className="text-gray-500 text-sm text-center py-8">No pending requests right now.</p>
               )}
             </div>
           </div>
