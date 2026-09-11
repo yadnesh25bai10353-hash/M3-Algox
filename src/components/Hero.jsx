@@ -35,7 +35,7 @@ const Hero = () => {
         </h1>
         
         <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Deploy institutional-grade algorithmic trading bots in minutes. Nifty, Bank Nifty, Crypto, Forex — all fully automated.
+          Deploy our flagship M3 Algo trading bot in minutes. High-probability setups with proprietary risk management — all fully automated.
         </p>
 
         {/* CTA Buttons */}
@@ -45,7 +45,7 @@ const Hero = () => {
             onClick={scrollToBots}
             className="w-full sm:w-auto px-8 py-4 bg-accent hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors shadow-lg shadow-accent/20"
           >
-            Browse Bots
+            Get M3 Algo
           </a>
           <Link 
             to="/how-it-works" 
