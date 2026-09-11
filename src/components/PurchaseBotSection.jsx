@@ -78,21 +78,7 @@ const PurchaseBotSection = () => {
               Advanced multi-asset algorithmic trading bot powered by AI. Identifies high-probability setups with proprietary risk management.
             </p>
 
-            {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-3 mb-5">
-              <div className="bg-navy-900 rounded-lg p-3 text-center border border-navy-700/50">
-                <div className="text-lg font-bold text-green-400">~35%</div>
-                <div className="text-[10px] text-gray-500 uppercase tracking-wider mt-0.5">Expected/Mo</div>
-              </div>
-              <div className="bg-navy-900 rounded-lg p-3 text-center border border-navy-700/50">
-                <div className="text-lg font-bold text-accent">72%</div>
-                <div className="text-[10px] text-gray-500 uppercase tracking-wider mt-0.5">Win Rate</div>
-              </div>
-              <div className="bg-navy-900 rounded-lg p-3 text-center border border-navy-700/50">
-                <div className="text-lg font-bold text-white">1,850+</div>
-                <div className="text-[10px] text-gray-500 uppercase tracking-wider mt-0.5">Deployed</div>
-              </div>
-            </div>
+
 
             {/* Pricing Summary */}
             <div className="bg-navy-900/70 rounded-lg p-4 border border-navy-700/30 mb-5 space-y-2">
