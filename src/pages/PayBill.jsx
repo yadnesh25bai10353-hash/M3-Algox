@@ -80,17 +80,22 @@ const PayBill = () => {
                   Scan the QR Code below using Google Pay, PhonePe, or Paytm to pay <strong className="text-white">{formatCurrency(amount)}</strong>
                 </p>
                 
-                <div className="bg-white p-4 rounded-xl shadow-inner mb-2 relative">
-                  {/* Here you can replace IconQrCode with an actual <img> tag for your scanners based on scannerId */}
-                  <IconQrCode />
+                <div className="bg-white p-4 rounded-xl shadow-inner mb-2 relative flex justify-center items-center">
+                  {scannerId === '1' ? (
+                    <img src="/scanner1.png" alt="Scanner 1" className="w-64 h-auto object-contain rounded-lg" />
+                  ) : (
+                    <IconQrCode />
+                  )}
                   <div className="absolute top-2 right-2 bg-navy-900 text-white text-xs px-2 py-1 rounded font-bold">
                     Scanner {scannerId}
                   </div>
                 </div>
 
-                <p className="text-gray-500 text-xs mb-6 text-center">
-                  (You can replace this placeholder with your actual GPay scanner image in the code)
-                </p>
+                {scannerId !== '1' && (
+                  <p className="text-gray-500 text-xs mb-6 text-center">
+                    (You can replace this placeholder with your actual GPay scanner image in the code)
+                  </p>
+                )}
 
                 <div className="w-full border-t border-navy-700 pt-6">
                   <h4 className="text-white font-medium mb-2 text-center">Payment Completed?</h4>
