@@ -6,10 +6,10 @@ const m3AlgoBot = {
   id: 100,
   name: 'M3 Algo',
   slug: 'm3-algo',
-  asset: 'Multi-Asset',
+  asset: 'Gold (XAUUSD)',
   category: 'Algo',
-  description: 'M3 Algo is an advanced multi-asset algorithmic trading bot powered by AI. It identifies high-probability trade setups across multiple markets using proprietary signal generation and risk management systems.',
-  longDescription: 'M3 Algo uses a sophisticated 3-layer signal filtering system combined with real-time market microstructure analysis. The algorithm adapts to changing market conditions automatically, adjusting position sizes and entry/exit criteria based on volatility regimes. It operates with strict risk management protocols to protect your capital while targeting consistent returns.',
+  description: 'M3 Algo is an advanced Gold (XAUUSD) algorithmic trading bot powered by AI. It identifies high-probability trade setups in the gold market using proprietary signal generation and risk management systems.',
+  longDescription: 'M3 Algo uses a sophisticated 3-layer signal filtering system combined with real-time market microstructure analysis for Gold. The algorithm adapts to changing market conditions automatically, adjusting position sizes and entry/exit criteria based on volatility regimes. It operates with strict risk management protocols to protect your capital while targeting consistent returns.',
   expectedReturn: '~35% Monthly (Approx)',
   profitShare: '30% of profits every 2 weeks',
   vpsFees: '₹1,500/month',
@@ -21,7 +21,7 @@ const m3AlgoBot = {
   minCapital: '₹50,000',
   features: [
     'AI-powered signal generation',
-    'Multi-asset coverage',
+    'Optimized for Gold (XAUUSD)',
     'Automated risk management',
     'Real-time position monitoring',
     'Auto stop-loss & take-profit',
@@ -73,11 +73,11 @@ const PurchaseBotSection = () => {
           <div className="p-6">
             {/* Bot Name */}
             <h3 className="font-heading font-bold text-2xl text-white mb-1">M3 Algo</h3>
-            <p className="text-xs text-gray-500 uppercase tracking-widest mb-3">Multi-Asset • AI-Powered</p>
+            <p className="text-xs text-gray-500 uppercase tracking-widest mb-3">Gold (XAUUSD) • AI-Powered</p>
 
             {/* Description */}
             <p className="text-sm text-gray-400 leading-relaxed mb-5">
-              Advanced multi-asset algorithmic trading bot powered by AI. Identifies high-probability setups with proprietary risk management.
+              Advanced Gold (XAUUSD) algorithmic trading bot powered by AI. Identifies high-probability setups with proprietary risk management.
             </p>
 
 
