@@ -24,12 +24,21 @@ const Dashboard = () => {
 
     const q = query(
       collection(db, 'bills'),
-      where('userId', '==', user.uid),
-      orderBy('createdAt', 'desc')
+      where('userId', '==', user.uid)
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      setBills(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
+      const fetchedBills = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      // Sort by createdAt descending on the client side to avoid Firestore index requirement
+      fetchedBills.sort((a, b) => {
+        const timeA = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
+        const timeB = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
+        return timeB - timeA;
+      });
+      setBills(fetchedBills);
+      setBillsLoading(false);
+    }, (error) => {
+      console.error("Error fetching bills:", error);
       setBillsLoading(false);
     });
 

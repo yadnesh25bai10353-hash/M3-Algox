@@ -92,10 +92,15 @@ const PayBill = () => {
                 </div>
 
                 {scannerId !== '1' && (
-                  <p className="text-gray-500 text-xs mb-6 text-center">
+                  <p className="text-gray-500 text-xs mb-4 text-center">
                     (You can replace this placeholder with your actual GPay scanner image in the code)
                   </p>
                 )}
+
+                <div className="bg-navy-900 border border-navy-700 rounded-lg p-3 w-full text-center mb-6">
+                  <p className="text-gray-400 text-sm">Or pay using UPI ID:</p>
+                  <p className="text-white font-bold tracking-wider mt-1 text-lg select-all">123@ybl</p>
+                </div>
 
                 <div className="w-full border-t border-navy-700 pt-6">
                   <h4 className="text-white font-medium mb-2 text-center">Payment Completed?</h4>
