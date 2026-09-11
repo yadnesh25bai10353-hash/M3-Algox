@@ -127,7 +127,7 @@ const PurchaseBotSection = () => {
                 Past performance and expected returns are not indicative of future results. The ~35% expected monthly return is approximate 
                 and <strong className="text-red-300">not guaranteed</strong>. You could lose some or all of your invested capital. 
                 By using this bot, you acknowledge that all trading decisions and risks are entirely your own responsibility. 
-                Yadnesh AI is not liable for any losses incurred. Please trade only with capital you can afford to lose.
+                M3 Algox is not liable for any losses incurred. Please trade only with capital you can afford to lose.
               </p>
             </div>
           </div>

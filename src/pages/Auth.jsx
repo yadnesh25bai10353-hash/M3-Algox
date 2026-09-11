@@ -105,10 +105,10 @@ const Auth = () => {
       <div className="max-w-md w-full bg-navy-800 rounded-2xl border border-navy-600 shadow-2xl p-8">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link to="/" className="font-heading font-bold text-3xl text-white">
-            Yadnesh <span className="text-accent">AI</span>
+          <Link to="/" className="inline-block font-heading font-bold text-3xl tracking-tight text-white mb-2">
+            M3 <span className="text-accent">Algox</span>
           </Link>
-          <p className="text-gray-400 text-sm mt-2">Trading Bot Platform</p>
+          <p className="text-gray-400 text-sm">Welcome to the future of trading.</p>
         </div>
 
         {/* Tab Toggle */}

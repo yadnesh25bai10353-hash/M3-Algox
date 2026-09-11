@@ -8,7 +8,7 @@ const IntroAnimation = ({ onComplete }) => {
   const animationRef = useRef(null);
   const particlesRef = useRef([]);
 
-  const text = "Yadnesh AI";
+  const text = "M3 Algox";
 
   const finishIntro = useCallback(() => {
     localStorage.setItem('yadnesh_intro_seen', 'true');

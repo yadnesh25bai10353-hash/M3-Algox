@@ -9,7 +9,7 @@ const Footer = () => {
           {/* Column 1: Brand */}
           <div className="space-y-4">
             <Link to="/" className="font-heading font-bold text-xl tracking-tight text-white inline-block">
-              Yadnesh <span className="text-[#3b82f6]">AI</span>
+              M3 <span className="text-[#3b82f6]">Algox</span>
             </Link>
             <p className="text-gray-400">
               Automated trading solutions powered by advanced algorithms.
@@ -52,7 +52,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-[#1a2234]/50 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <p className="text-gray-500">
-            &copy; 2026 Yadnesh AI. All rights reserved.
+            &copy; 2026 M3 Algox. All rights reserved.
           </p>
           
           <div className="flex space-x-6">

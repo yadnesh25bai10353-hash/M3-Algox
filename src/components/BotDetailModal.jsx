@@ -101,13 +101,13 @@ const BotDetailModal = ({ bot, isOpen, onClose }) => {
 
                 <p>
                   🔴 <strong className="text-red-400">All risks are entirely yours.</strong> By using M3 Algo or any trading 
-                  bot provided by Yadnesh AI, you acknowledge and accept that:
+                  bot provided by M3 Algox, you acknowledge and accept that:
                 </p>
 
                 <ul className="space-y-2 pl-4">
                   <li className="flex items-start gap-2">
                     <span className="text-red-400 mt-0.5">•</span>
-                    <span>You are trading at <strong className="text-white">your own risk and responsibility</strong>. Yadnesh AI is not responsible for any losses.</span>
+                    <span>You are trading at <strong className="text-white">your own risk and responsibility</strong>. M3 Algox is not responsible for any losses.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-red-400 mt-0.5">•</span>
@@ -260,7 +260,7 @@ const BotDetailModal = ({ bot, isOpen, onClose }) => {
               <strong className="text-red-400">⚠️ Disclaimer:</strong> Trading involves substantial risk. 
               Expected returns (~35%/month) are approximate and <strong className="text-red-300">not guaranteed</strong>. 
               All trading is at your own risk and responsibility. You could lose some or all of your capital. 
-              Yadnesh AI is not liable for any financial losses. Trade only with money you can afford to lose.
+              M3 Algox is not liable for any financial losses. Trade only with money you can afford to lose.
             </p>
           </div>
         </div>

@@ -251,7 +251,7 @@ const Dashboard = () => {
       <main className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Mobile Header */}
         <header className="md:hidden bg-navy-800 border-b border-navy-700/50 p-4 flex items-center justify-between z-10 shadow-md">
-          <h1 className="text-xl font-heading font-bold text-white">Yadnesh AI</h1>
+          <h1 className="text-xl font-heading font-bold text-white">M3 Algox</h1>
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="text-gray-300 hover:text-white p-2"
