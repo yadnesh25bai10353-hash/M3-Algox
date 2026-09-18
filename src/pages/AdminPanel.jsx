@@ -142,12 +142,15 @@ const AdminPanel = () => {
   };
 
   const handleWhatsAppReminder = (bill) => {
-    if (!bill.userPhone) {
+    const userInDb = users.find(u => u.id === bill.userId);
+    const latestPhone = userInDb?.phone || bill.userPhone;
+
+    if (!latestPhone) {
       alert("No phone number available for this user.");
       return;
     }
     
-    let phone = bill.userPhone.replace(/\D/g, '');
+    let phone = latestPhone.replace(/\D/g, '');
     if (phone.length === 10) {
       phone = '91' + phone;
     }

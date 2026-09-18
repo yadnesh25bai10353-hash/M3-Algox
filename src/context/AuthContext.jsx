@@ -11,6 +11,7 @@ import {
   setDoc,
   getDoc,
   serverTimestamp,
+  onSnapshot,
 } from 'firebase/firestore';
 
 const AuthContext = createContext(null);
@@ -23,33 +24,43 @@ export const AuthProvider = ({ children }) => {
 
   // Listen for auth state changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    let unsubscribeDoc = null;
+
+    const unsubscribeAuth = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
-        // Fetch user profile from Firestore
-        const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
-        if (userDoc.exists()) {
-          setUser({
-            uid: firebaseUser.uid,
-            email: firebaseUser.email,
-            ...userDoc.data(),
-            isAdmin: firebaseUser.email === ADMIN_EMAIL,
-          });
-        } else {
-          // User exists in auth but not in Firestore (edge case)
-          setUser({
-            uid: firebaseUser.uid,
-            email: firebaseUser.email,
-            name: firebaseUser.email.split('@')[0],
-            isAdmin: firebaseUser.email === ADMIN_EMAIL,
-          });
-        }
+        // Listen to user profile in real-time
+        unsubscribeDoc = onSnapshot(doc(db, 'users', firebaseUser.uid), (userDoc) => {
+          if (userDoc.exists()) {
+            setUser({
+              uid: firebaseUser.uid,
+              email: firebaseUser.email,
+              ...userDoc.data(),
+              isAdmin: firebaseUser.email === ADMIN_EMAIL,
+            });
+          } else {
+            setUser({
+              uid: firebaseUser.uid,
+              email: firebaseUser.email,
+              name: firebaseUser.email.split('@')[0],
+              isAdmin: firebaseUser.email === ADMIN_EMAIL,
+            });
+          }
+          setLoading(false);
+        });
       } else {
         setUser(null);
+        setLoading(false);
+        if (unsubscribeDoc) {
+          unsubscribeDoc();
+          unsubscribeDoc = null;
+        }
       }
-      setLoading(false);
     });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribeAuth();
+      if (unsubscribeDoc) unsubscribeDoc();
+    };
   }, []);
 
   // Register new user
