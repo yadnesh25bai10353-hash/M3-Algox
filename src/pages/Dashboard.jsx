@@ -8,6 +8,8 @@ import {
   where,
   orderBy,
   onSnapshot,
+  doc,
+  updateDoc,
 } from 'firebase/firestore';
 import PurchaseBotSection from '../components/PurchaseBotSection';
 
@@ -17,6 +19,10 @@ const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [bills, setBills] = useState([]);
   const [billsLoading, setBillsLoading] = useState(true);
+
+  const [isEditingPhone, setIsEditingPhone] = useState(false);
+  const [newPhone, setNewPhone] = useState('');
+  const [isUpdatingPhone, setIsUpdatingPhone] = useState(false);
 
   // Real-time listener for user's bills
   useEffect(() => {
@@ -74,6 +80,21 @@ const Dashboard = () => {
   const handlePayNow = (bill) => {
     const payUrl = `/pay?client=${encodeURIComponent(user.name || user.email)}&amount=${bill.amount}&scanner=${bill.scannerId || '1'}`;
     window.open(payUrl, '_blank');
+  };
+
+  const handleUpdatePhone = async () => {
+    if (!newPhone.trim()) return;
+    setIsUpdatingPhone(true);
+    try {
+      await updateDoc(doc(db, 'users', user.uid), {
+        phone: newPhone.trim()
+      });
+      setIsEditingPhone(false);
+    } catch (err) {
+      alert('Error updating phone: ' + err.message);
+    } finally {
+      setIsUpdatingPhone(false);
+    }
   };
 
   const renderContent = () => {
@@ -166,7 +187,44 @@ const Dashboard = () => {
               </div>
               <div>
                 <label className="block text-sm text-gray-400 mb-1">Phone</label>
-                <p className="text-white font-medium">{user?.phone || '—'}</p>
+                {!isEditingPhone ? (
+                  <div className="flex items-center gap-3">
+                    <p className="text-white font-medium">{user?.phone || '—'}</p>
+                    <button 
+                      onClick={() => {
+                        setNewPhone(user?.phone || '');
+                        setIsEditingPhone(true);
+                      }}
+                      className="text-xs text-accent hover:text-accent-light underline transition-colors"
+                    >
+                      Edit
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2 mt-1">
+                    <input
+                      type="tel"
+                      value={newPhone}
+                      onChange={(e) => setNewPhone(e.target.value)}
+                      placeholder="New WhatsApp number"
+                      className="bg-navy-900 border border-navy-600 rounded-lg px-3 py-1.5 text-white text-sm focus:outline-none focus:border-accent w-48"
+                    />
+                    <button
+                      onClick={handleUpdatePhone}
+                      disabled={isUpdatingPhone}
+                      className="bg-green-500/20 text-green-400 hover:bg-green-500/30 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors disabled:opacity-50"
+                    >
+                      {isUpdatingPhone ? '...' : 'Save'}
+                    </button>
+                    <button
+                      onClick={() => setIsEditingPhone(false)}
+                      disabled={isUpdatingPhone}
+                      className="bg-gray-500/20 text-gray-400 hover:bg-gray-500/30 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors disabled:opacity-50"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                )}
               </div>
               <div>
                 <label className="block text-sm text-gray-400 mb-1">Bot Status</label>
