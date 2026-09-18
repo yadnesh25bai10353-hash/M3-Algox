@@ -10,6 +10,7 @@ import PayBill from './pages/PayBill';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import Risk from './pages/Risk';
+import Chatbot from './pages/Chatbot';
 
 export default function App() {
   const [introComplete, setIntroComplete] = useState(false);
@@ -36,6 +37,7 @@ export default function App() {
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/risk" element={<Risk />} />
+            <Route path="/chatbot" element={<Chatbot />} />
           </Routes>
         </main>
       </div>
