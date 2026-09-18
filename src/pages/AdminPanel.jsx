@@ -570,39 +570,42 @@ const AdminPanel = () => {
                     </div>
                     <span className="text-white font-bold text-lg">₹{bill.amount?.toLocaleString('en-IN')}</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-2">
-                      <span className={`px-2 py-0.5 rounded text-xs font-bold ${
-                        bill.status === 'paid'
-                          ? 'bg-green-500/20 text-green-400'
-                          : 'bg-yellow-500/20 text-yellow-400'
-                      }`}>
-                        {bill.status === 'paid' ? '✅ Paid' : '⏳ Pending'}
-                      </span>
-                      <span className="text-gray-500 text-xs">{formatDate(bill.createdAt)}</span>
+                  <div className="flex flex-col gap-3 mt-2 pt-3 border-t border-navy-700/50">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center gap-2">
+                        <span className={`px-2 py-0.5 rounded text-xs font-bold ${
+                          bill.status === 'paid'
+                            ? 'bg-green-500/20 text-green-400'
+                            : 'bg-yellow-500/20 text-yellow-400'
+                        }`}>
+                          {bill.status === 'paid' ? '✅ Paid' : '⏳ Pending'}
+                        </span>
+                        <span className="text-gray-500 text-xs">{formatDate(bill.createdAt)}</span>
+                      </div>
+                      {bill.status !== 'pending' && (
+                        <button
+                          onClick={() => handleMarkUnpaid(bill.id)}
+                          className="px-3 py-1.5 bg-gray-500/20 text-gray-400 hover:bg-gray-500/30 rounded-lg text-xs font-medium"
+                        >
+                          Undo
+                        </button>
+                      )}
                     </div>
-                    {bill.status === 'pending' ? (
-                      <div className="flex gap-2">
+                    {bill.status === 'pending' && (
+                      <div className="flex gap-2 w-full mt-1">
                         <button
                           onClick={() => handleWhatsAppReminder(bill)}
-                          className="px-3 py-1.5 bg-green-600/20 text-green-400 hover:bg-green-600/40 border border-green-600/30 rounded-lg text-xs font-medium flex items-center gap-1"
+                          className="flex-1 justify-center py-2 bg-green-600/20 text-green-400 hover:bg-green-600/40 border border-green-600/30 rounded-lg text-sm font-medium flex items-center gap-1 transition-colors"
                         >
                           💬 Remind
                         </button>
                         <button
                           onClick={() => handleMarkPaid(bill.id)}
-                          className="px-3 py-1.5 bg-green-500/20 text-green-400 hover:bg-green-500/30 rounded-lg text-xs font-medium"
+                          className="flex-1 py-2 bg-green-500/20 text-green-400 hover:bg-green-500/30 rounded-lg text-sm font-medium transition-colors"
                         >
                           Mark Paid
                         </button>
                       </div>
-                    ) : (
-                      <button
-                        onClick={() => handleMarkUnpaid(bill.id)}
-                        className="px-3 py-1.5 bg-gray-500/20 text-gray-400 hover:bg-gray-500/30 rounded-lg text-xs font-medium"
-                      >
-                        Undo
-                      </button>
                     )}
                   </div>
                 </div>

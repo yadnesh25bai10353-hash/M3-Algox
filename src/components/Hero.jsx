@@ -19,7 +19,7 @@ const Hero = () => {
       ></div>
       
       {/* Glow effect */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent rounded-full blur-[150px] opacity-10 z-0 pointer-events-none"></div>
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[500px] aspect-square bg-accent rounded-full blur-[100px] md:blur-[150px] opacity-10 z-0 pointer-events-none"></div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 text-center">
         {/* Headings */}
