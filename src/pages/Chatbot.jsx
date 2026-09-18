@@ -1,14 +1,40 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Footer from '../components/Footer';
 
+const PREDEFINED_QUESTIONS = [
+  {
+    question: "What is the minimum capital required?",
+    answer: "The minimum capital required to run the M3 Algo bot is ₹1,00,000 in your trading account."
+  },
+  {
+    question: "What is the expected return?",
+    answer: "The expected return is approximately ~35% monthly. However, please note that this is based on historical data and future results are not guaranteed."
+  },
+  {
+    question: "What are the fees and profit sharing?",
+    answer: "We charge a fixed VPS maintenance fee of ₹1,500/month. Additionally, there is a profit-sharing model where 30% of the net profits generated are payable every 2 weeks."
+  },
+  {
+    question: "What is M3 Algo bot?",
+    answer: "M3 Algo is an advanced AI-powered algorithmic trading bot optimized for Gold (XAUUSD). It identifies high-probability setups and automates your trades with strict risk management."
+  },
+  {
+    question: "Is there any risk involved?",
+    answer: "Trading involves risk, and you could lose capital. However, M3 Algo operates with strict automated risk management, adaptive lot sizing, and auto stop-loss protocols."
+  },
+  {
+    question: "How can I contact support?",
+    answer: "For detailed technical support or queries, you can contact us via WhatsApp using the link in the header menu."
+  }
+];
+
 const Chatbot = () => {
   const [messages, setMessages] = useState([
     {
       sender: 'bot',
-      text: 'Hello! I am the M3 Algox Assistant. I can answer basic questions about our trading bot, such as minimum capital, expected returns, fees, or how it works. How can I help you today?'
+      text: 'Hello! I am the M3 Algox Assistant. Please select a question below to get an instant answer.'
     }
   ]);
-  const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -19,53 +45,15 @@ const Chatbot = () => {
     scrollToBottom();
   }, [messages]);
 
-  const generateBotResponse = (userInput) => {
-    const input = userInput.toLowerCase();
-    
-    if (input.includes('minimum') || input.includes('capital') || input.includes('investment') || input.includes('fund')) {
-      return "The minimum capital required to run the M3 Algo bot is ₹50,000 in your trading account.";
-    }
-    
-    if (input.includes('return') || input.includes('profit') || input.includes('yield') || input.includes('earn')) {
-      return "The expected return is approximately ~35% monthly. However, please note that this is based on historical data and future results are not guaranteed.";
-    }
-    
-    if (input.includes('fee') || input.includes('vps') || input.includes('cost') || input.includes('charge') || input.includes('price')) {
-      return "We charge a fixed VPS maintenance fee of ₹1,500/month. Additionally, there is a profit-sharing model where 30% of the net profits generated are payable every 2 weeks.";
-    }
-    
-    if (input.includes('what is') || input.includes('how it works') || input.includes('about')) {
-      return "M3 Algo is an advanced AI-powered algorithmic trading bot optimized for Gold (XAUUSD). It identifies high-probability setups and automates your trades with strict risk management.";
-    }
-    
-    if (input.includes('risk') || input.includes('safe') || input.includes('loss') || input.includes('drawdown')) {
-      return "Trading involves risk, and you could lose capital. However, M3 Algo operates with strict automated risk management, adaptive lot sizing, and auto stop-loss protocols.";
-    }
-    
-    if (input.includes('hello') || input.includes('hi') || input.includes('hey')) {
-      return "Hello! How can I assist you with the M3 Algo bot today?";
-    }
-    
-    if (input.includes('support') || input.includes('contact') || input.includes('help') || input.includes('whatsapp')) {
-      return "For detailed technical support or queries, you can contact us via WhatsApp at our support number provided in the header menu.";
-    }
-
-    return "I'm a basic assistant and might not understand complex queries yet. Try asking me about 'minimum capital', 'fees', 'expected returns', or 'risk'. For detailed support, please reach out via WhatsApp.";
-  };
-
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    if (!inputValue.trim()) return;
-
-    const newMessages = [...messages, { sender: 'user', text: inputValue }];
+  const handleQuestionClick = (qa) => {
+    // Add user question
+    const newMessages = [...messages, { sender: 'user', text: qa.question }];
     setMessages(newMessages);
-    setInputValue('');
 
-    // Simulate slight delay for bot response
+    // Add bot answer after a short delay
     setTimeout(() => {
-      const botResponse = generateBotResponse(inputValue);
-      setMessages(prev => [...prev, { sender: 'bot', text: botResponse }]);
-    }, 600);
+      setMessages(prev => [...prev, { sender: 'bot', text: qa.answer }]);
+    }, 400);
   };
 
   return (
@@ -73,7 +61,7 @@ const Chatbot = () => {
       <div className="flex-1 max-w-4xl mx-auto w-full p-4 md:p-8 flex flex-col">
         <h1 className="text-2xl md:text-3xl font-heading font-bold text-white mb-6">M3 Algox Assistant</h1>
         
-        <div className="flex-1 bg-navy-800/80 border border-navy-600/50 rounded-xl flex flex-col shadow-xl overflow-hidden backdrop-blur-md">
+        <div className="flex-1 bg-navy-800/80 border border-navy-600/50 rounded-xl flex flex-col shadow-xl overflow-hidden backdrop-blur-md max-h-[70vh]">
           {/* Chat History */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map((msg, index) => (
@@ -95,26 +83,20 @@ const Chatbot = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Chat Input */}
-          <div className="p-4 bg-navy-900/50 border-t border-navy-600/50">
-            <form onSubmit={handleSendMessage} className="flex gap-2">
-              <input
-                type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Ask about minimum capital, fees, returns..."
-                className="flex-1 bg-navy-800 border border-navy-600/50 text-white text-sm rounded-lg px-4 py-3 focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent transition-all shadow-inner"
-              />
-              <button
-                type="submit"
-                disabled={!inputValue.trim()}
-                className="bg-accent hover:bg-accent-dark text-navy-900 font-bold px-6 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
-              </button>
-            </form>
+          {/* Quick Reply Questions */}
+          <div className="p-4 bg-navy-900/50 border-t border-navy-600/50 overflow-y-auto max-h-48">
+            <p className="text-xs text-gray-400 mb-3 uppercase tracking-wider font-semibold">Select a question:</p>
+            <div className="flex flex-wrap gap-2">
+              {PREDEFINED_QUESTIONS.map((qa, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleQuestionClick(qa)}
+                  className="bg-navy-800 hover:bg-navy-700 border border-navy-600/50 text-gray-300 hover:text-accent text-sm text-left rounded-lg px-4 py-2 transition-all duration-200 shadow-sm"
+                >
+                  {qa.question}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>

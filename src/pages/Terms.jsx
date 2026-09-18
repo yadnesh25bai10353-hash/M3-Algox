@@ -20,7 +20,7 @@ const Terms = () => {
 
           <h2 className="text-xl font-semibold text-white mt-8 mb-4">4. User Responsibilities</h2>
           <ul className="list-disc pl-5 space-y-2">
-            <li>Maintaining sufficient capital (minimum ₹50,000) in the connected trading account.</li>
+            <li>Maintaining sufficient capital (minimum ₹1,00,000) in the connected trading account.</li>
             <li>Paying invoices for profit sharing and VPS fees on time. Failure to do so may result in service suspension.</li>
             <li>Keeping API keys and account credentials secure.</li>
           </ul>

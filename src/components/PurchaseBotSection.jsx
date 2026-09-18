@@ -18,7 +18,7 @@ const m3AlgoBot = {
   deployed: 1850,
   winRate: '72%',
   timeframe: 'Intraday + Positional',
-  minCapital: '₹50,000',
+  minCapital: '₹1,00,000',
   features: [
     'AI-powered signal generation',
     'Optimized for Gold (XAUUSD)',
@@ -30,7 +30,7 @@ const m3AlgoBot = {
   ],
   requirements: [
     'Active trading account with API access',
-    'Minimum ₹50,000 capital',
+    'Minimum ₹1,00,000 capital',
     'VPS (₹1,500/month) for 24/7 uptime',
     'Stable internet connection',
   ],
