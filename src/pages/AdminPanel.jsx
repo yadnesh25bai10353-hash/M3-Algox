@@ -141,6 +141,22 @@ const AdminPanel = () => {
     return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
   };
 
+  const handleWhatsAppReminder = (bill) => {
+    if (!bill.userPhone) {
+      alert("No phone number available for this user.");
+      return;
+    }
+    
+    let phone = bill.userPhone.replace(/\D/g, '');
+    if (phone.length === 10) {
+      phone = '91' + phone;
+    }
+
+    const message = `Hello ${bill.userName},\n\nThis is a gentle reminder that your bill for *${bill.description}* of amount *₹${bill.amount.toLocaleString('en-IN')}* is currently pending.\n\nPlease complete the payment at the earliest to ensure uninterrupted services for your M3 Algo bot.\n\nThank you!`;
+    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   const navItems = [
     { id: 'dashboard', label: '📊 Dashboard', icon: '📊' },
     { id: 'requests', label: '🔔 Bot Requests', icon: '🔔' },
@@ -508,14 +524,23 @@ const AdminPanel = () => {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-gray-500 text-xs">{formatDate(bill.createdAt)}</td>
-                      <td className="px-4 py-3 text-center">
+                      <td className="px-4 py-3 text-center flex justify-center gap-2">
                         {bill.status === 'pending' ? (
-                          <button
-                            onClick={() => handleMarkPaid(bill.id)}
-                            className="px-3 py-1 bg-green-500/20 text-green-400 hover:bg-green-500/30 rounded text-xs font-medium transition-colors"
-                          >
-                            Mark Paid
-                          </button>
+                          <>
+                            <button
+                              onClick={() => handleMarkPaid(bill.id)}
+                              className="px-3 py-1 bg-green-500/20 text-green-400 hover:bg-green-500/30 rounded text-xs font-medium transition-colors"
+                            >
+                              Mark Paid
+                            </button>
+                            <button
+                              onClick={() => handleWhatsAppReminder(bill)}
+                              className="px-3 py-1 bg-green-600/20 text-green-400 hover:bg-green-600/40 border border-green-600/30 rounded text-xs font-medium transition-colors flex items-center gap-1"
+                              title="Send WhatsApp Reminder"
+                            >
+                              💬 Remind
+                            </button>
+                          </>
                         ) : (
                           <button
                             onClick={() => handleMarkUnpaid(bill.id)}
@@ -557,12 +582,20 @@ const AdminPanel = () => {
                       <span className="text-gray-500 text-xs">{formatDate(bill.createdAt)}</span>
                     </div>
                     {bill.status === 'pending' ? (
-                      <button
-                        onClick={() => handleMarkPaid(bill.id)}
-                        className="px-3 py-1.5 bg-green-500/20 text-green-400 hover:bg-green-500/30 rounded-lg text-xs font-medium"
-                      >
-                        Mark Paid
-                      </button>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleWhatsAppReminder(bill)}
+                          className="px-3 py-1.5 bg-green-600/20 text-green-400 hover:bg-green-600/40 border border-green-600/30 rounded-lg text-xs font-medium flex items-center gap-1"
+                        >
+                          💬 Remind
+                        </button>
+                        <button
+                          onClick={() => handleMarkPaid(bill.id)}
+                          className="px-3 py-1.5 bg-green-500/20 text-green-400 hover:bg-green-500/30 rounded-lg text-xs font-medium"
+                        >
+                          Mark Paid
+                        </button>
+                      </div>
                     ) : (
                       <button
                         onClick={() => handleMarkUnpaid(bill.id)}
