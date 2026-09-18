@@ -292,8 +292,8 @@ const BotDetailModal = ({ bot, isOpen, onClose }) => {
               <button
                 onClick={handleRequestBot}
                 disabled={isRequesting}
-                className={`flex-shrink-0 font-bold py-3 px-5 rounded-lg transition-all duration-200 active:scale-[0.97] shadow-lg flex items-center justify-center gap-2 text-sm ${
-                  isRequesting ? 'bg-gray-600 text-gray-300 cursor-not-allowed' : 'bg-accent hover:bg-blue-500 text-white shadow-accent/30'
+                className={`flex-shrink-0 py-3 px-6 rounded-lg transition-all duration-300 active:scale-[0.97] flex items-center justify-center gap-2 text-sm ${
+                  isRequesting ? 'bg-gray-600 text-gray-300 cursor-not-allowed' : 'btn-primary'
                 }`}
               >
                 {isRequesting ? 'Requesting...' : 'Request Bot'}

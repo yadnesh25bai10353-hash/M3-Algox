@@ -26,7 +26,6 @@ const m3AlgoBot = {
     'Real-time position monitoring',
     'Auto stop-loss & take-profit',
     'Adaptive lot sizing',
-    'Low drawdown strategy',
     'Daily P&L reports',
   ],
   requirements: [
@@ -57,56 +56,58 @@ const PurchaseBotSection = () => {
 
       {/* M3 Algo Bot Card */}
       <div className="max-w-lg">
-        <div className="bg-navy-800 border border-navy-600/50 rounded-xl shadow-lg hover:shadow-xl hover:border-navy-500 transition-all duration-300 overflow-hidden">
+        <div className="bg-navy-800/80 backdrop-blur-md border border-accent/20 rounded-xl shadow-2xl hover:shadow-glow-gold hover:border-accent/60 transition-all duration-500 overflow-hidden relative group">
+          {/* Subtle animated gradient background on hover */}
+          <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          
           {/* Tag */}
-          <div className="bg-gradient-to-r from-accent-gold/20 to-accent/20 border-b border-navy-700/50 px-5 py-2 flex items-center justify-between">
-            <span className="text-accent-gold text-xs font-bold uppercase tracking-widest">⚡ Flagship Bot</span>
-            <div className="flex items-center gap-1">
-              <svg className="w-4 h-4 text-accent-gold" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-              <span className="text-gray-300 text-sm font-semibold">4.9</span>
-              <span className="text-gray-500 text-xs">({m3AlgoBot.reviews} reviews)</span>
-            </div>
+          <div className="bg-gradient-to-r from-navy-900 to-navy-800 border-b border-accent/20 px-5 py-3 flex items-center justify-between">
+            <span className="text-accent-gold text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-gold opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+              </span>
+              Flagship Bot
+            </span>
           </div>
 
-          <div className="p-6">
+          <div className="p-6 md:p-8 relative z-10">
             {/* Bot Name */}
-            <h3 className="font-heading font-bold text-2xl text-white mb-1">M3 Algo</h3>
-            <p className="text-xs text-gray-500 uppercase tracking-widest mb-3">Gold (XAUUSD) • AI-Powered</p>
+            <h3 className="font-heading font-extrabold text-3xl text-white mb-1 tracking-tight">M3 Algo</h3>
+            <p className="text-xs text-accent-light uppercase tracking-widest mb-4 font-semibold">Gold (XAUUSD) • AI-Powered</p>
 
             {/* Description */}
-            <p className="text-sm text-gray-400 leading-relaxed mb-5">
+            <p className="text-sm text-gray-300 leading-relaxed mb-6 font-light">
               Advanced Gold (XAUUSD) algorithmic trading bot powered by AI. Identifies high-probability setups with proprietary risk management.
             </p>
 
 
 
             {/* Pricing Summary */}
-            <div className="bg-navy-900/70 rounded-lg p-4 border border-navy-700/30 mb-5 space-y-2">
+            <div className="bg-navy-900/90 rounded-lg p-5 border border-accent/10 mb-6 space-y-3 shadow-inner">
               <div className="flex justify-between items-center text-sm">
                 <span className="text-gray-400">Profit Sharing</span>
-                <span className="text-white font-semibold">30% of profits (every 2 weeks)</span>
+                <span className="text-white font-medium">30% of profits <span className="text-gray-500 text-xs font-normal">(every 2 weeks)</span></span>
               </div>
               <div className="flex justify-between items-center text-sm">
                 <span className="text-gray-400">VPS Fees</span>
-                <span className="text-white font-semibold">₹1,500/month</span>
+                <span className="text-white font-medium">₹1,500/month</span>
               </div>
             </div>
 
             {/* CTA */}
             {user?.botPurchased ? (
-              <div className="w-full bg-green-500/20 text-green-400 border border-green-500/30 text-center font-bold py-3 rounded-lg flex items-center justify-center gap-2">
+              <div className="w-full bg-green-500/10 text-green-400 border border-green-500/30 text-center font-bold py-3.5 rounded-lg flex items-center justify-center gap-2 backdrop-blur-sm">
                 <span>✅ Bot Active & Purchased</span>
               </div>
             ) : user?.botRequested ? (
-              <div className="w-full bg-accent-gold/20 text-accent-gold border border-accent-gold/30 text-center font-bold py-3 rounded-lg flex items-center justify-center gap-2">
+              <div className="w-full bg-accent-gold/10 text-accent-gold border border-accent-gold/30 text-center font-bold py-3.5 rounded-lg flex items-center justify-center gap-2 backdrop-blur-sm">
                 <span>⏳ Request Pending Approval</span>
               </div>
             ) : (
               <button
                 onClick={handleViewDetails}
-                className="w-full bg-accent hover:bg-accent-dark text-white font-semibold py-3 rounded-lg transition-all duration-200 active:scale-[0.97] shadow-lg shadow-accent/20 hover:shadow-accent/30"
+                className="w-full btn-primary py-4 text-base tracking-wide"
               >
                 View Details & Request
               </button>

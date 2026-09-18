@@ -12,6 +12,8 @@
   body {
     min-height: 100vh;
     overflow-x: hidden;
+    background-color: #070709;
+    color: #e5e7eb;
   }
 
   ::-webkit-scrollbar {
@@ -19,44 +21,44 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #0a0e1a;
+    background: #070709;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #243049;
+    background: #2a2a35;
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #2e3f5e;
+    background: #d4af37;
   }
 
   ::selection {
-    background: rgba(59, 130, 246, 0.3);
-    color: #fff;
+    background: rgba(212, 175, 55, 0.3);
+    color: #ffd700;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-accent hover:bg-accent-dark text-white font-semibold px-6 py-2.5 rounded-lg
-           transition-all duration-200 ease-out active:scale-[0.97] shadow-lg shadow-accent/20
-           hover:shadow-accent/30;
+    @apply bg-gradient-to-r from-accent to-accent-dark hover:from-accent-light hover:to-accent text-navy-900 font-bold px-6 py-2.5 rounded-lg
+           transition-all duration-300 ease-out active:scale-[0.97] shadow-glow-gold
+           hover:shadow-glow-gold-lg border border-accent-light/30;
   }
 
   .btn-secondary {
-    @apply border border-gray-600 hover:border-accent text-gray-300 hover:text-white
-           font-medium px-6 py-2.5 rounded-lg transition-all duration-200;
+    @apply border border-navy-600 hover:border-accent text-gray-300 hover:text-accent-light
+           font-medium px-6 py-2.5 rounded-lg transition-all duration-300 bg-navy-800/50 hover:bg-navy-800;
   }
 
   .btn-gold {
-    @apply bg-accent-gold hover:bg-yellow-500 text-navy-900 font-bold px-6 py-2.5 rounded-lg
-           transition-all duration-200 ease-out active:scale-[0.97] shadow-lg shadow-accent-gold/20;
+    @apply bg-gradient-to-r from-accent-gold to-accent text-navy-900 font-bold px-6 py-2.5 rounded-lg
+           transition-all duration-300 ease-out active:scale-[0.97] shadow-glow-gold hover:shadow-glow-gold-lg;
   }
 
   .card {
-    @apply bg-navy-800 border border-navy-600/50 rounded-xl shadow-lg
-           hover:shadow-xl hover:border-navy-500 transition-all duration-300;
+    @apply bg-navy-800 border border-navy-600/50 rounded-xl shadow-2xl
+           hover:shadow-glow-gold hover:border-accent/50 transition-all duration-300 backdrop-blur-sm;
   }
 
   .input-field {

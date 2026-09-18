@@ -70,7 +70,7 @@ const PayBill = () => {
             {!showScanner ? (
               <button
                 onClick={() => setShowScanner(true)}
-                className="w-full bg-accent hover:bg-accent-dark text-white font-bold py-3.5 rounded-lg transition-all shadow-lg shadow-accent/20"
+                className="w-full btn-primary py-3.5 text-base"
               >
                 Proceed to Pay
               </button>

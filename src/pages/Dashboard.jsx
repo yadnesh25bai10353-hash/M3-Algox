@@ -133,7 +133,7 @@ const Dashboard = () => {
                       {bill.status === 'pending' && (
                         <button
                           onClick={() => handlePayNow(bill)}
-                          className="bg-accent hover:bg-accent/90 text-white font-medium py-2 px-5 rounded-lg transition-colors text-sm shadow-lg shadow-accent/20"
+                          className="btn-primary text-sm px-5 py-2"
                         >
                           Pay Now →
                         </button>
@@ -203,7 +203,7 @@ const Dashboard = () => {
       {/* Left Sidebar */}
       <aside className={`fixed inset-y-0 left-0 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 z-30 w-64 bg-navy-800 border-r border-navy-700/50 transition-transform duration-300 flex flex-col`}>
         <div className="p-6 border-b border-navy-700/50 flex flex-col items-center">
-          <div className="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-white text-xl font-bold mb-3 shadow-lg shadow-accent/20">
+          <div className="w-16 h-16 rounded-full bg-gradient-to-r from-accent to-accent-dark flex items-center justify-center text-navy-900 text-xl font-bold mb-3 shadow-glow-gold border border-accent/30">
             {user?.name?.charAt(0) || 'U'}
           </div>
           <h2 className="text-white font-bold">{user?.name || 'User'}</h2>

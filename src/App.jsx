@@ -7,6 +7,9 @@ import Auth from './pages/Auth';
 import Dashboard from './pages/Dashboard';
 import AdminPanel from './pages/AdminPanel';
 import PayBill from './pages/PayBill';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
+import Risk from './pages/Risk';
 
 export default function App() {
   const [introComplete, setIntroComplete] = useState(false);
@@ -23,13 +26,16 @@ export default function App() {
         }`}
       >
         <Header />
-        <main className="pt-16">
+        <main className="pt-16 flex flex-col min-h-screen">
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/pay" element={<PayBill />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/risk" element={<Risk />} />
           </Routes>
         </main>
       </div>

@@ -112,11 +112,11 @@ const Auth = () => {
         </div>
 
         {/* Tab Toggle */}
-        <div className="flex bg-navy-900 rounded-full p-1 mb-8">
+        <div className="flex bg-navy-900 rounded-full p-1 mb-8 shadow-inner border border-navy-600/30">
           <button
             onClick={() => { setIsLogin(true); setFirebaseError(''); setErrors({}); }}
             className={`flex-1 py-2.5 rounded-full text-sm font-semibold transition-all ${
-              isLogin ? 'bg-accent text-white shadow-md' : 'text-gray-400 hover:text-white'
+              isLogin ? 'bg-gradient-to-r from-accent to-accent-dark text-navy-900 shadow-glow-gold' : 'text-gray-400 hover:text-white'
             }`}
           >
             Login
@@ -124,7 +124,7 @@ const Auth = () => {
           <button
             onClick={() => { setIsLogin(false); setFirebaseError(''); setErrors({}); }}
             className={`flex-1 py-2.5 rounded-full text-sm font-semibold transition-all ${
-              !isLogin ? 'bg-accent text-white shadow-md' : 'text-gray-400 hover:text-white'
+              !isLogin ? 'bg-gradient-to-r from-accent to-accent-dark text-navy-900 shadow-glow-gold' : 'text-gray-400 hover:text-white'
             }`}
           >
             New Client
@@ -133,7 +133,7 @@ const Auth = () => {
 
         {/* Firebase Error */}
         {firebaseError && (
-          <div className="mb-6 p-3 bg-red-950/50 border border-red-900/50 rounded-lg text-red-400 text-sm text-center">
+          <div className="mb-6 p-3 bg-red-950/50 border border-red-900/50 rounded-lg text-red-400 text-sm text-center shadow-inner">
             ⚠️ {firebaseError}
           </div>
         )}
@@ -148,7 +148,7 @@ const Auth = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full bg-navy-900 border border-navy-600 rounded-lg px-4 py-2.5 text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent"
+                className="w-full bg-navy-900 border border-navy-600 rounded-lg px-4 py-2.5 text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent shadow-inner"
                 placeholder="Enter your full name"
               />
               {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
@@ -162,7 +162,7 @@ const Auth = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full bg-navy-900 border border-navy-600 rounded-lg px-4 py-2.5 text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent"
+              className="w-full bg-navy-900 border border-navy-600 rounded-lg px-4 py-2.5 text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent shadow-inner"
               placeholder="you@example.com"
             />
             {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
@@ -171,7 +171,7 @@ const Auth = () => {
           {!isLogin && (
             <div>
               <label className="block text-sm font-medium text-gray-400 mb-1">Phone Number</label>
-              <div className="flex">
+              <div className="flex shadow-inner rounded-lg">
                 <span className="inline-flex items-center px-3 bg-navy-700 border border-r-0 border-navy-600 rounded-l-lg text-gray-400 text-sm">
                   +91
                 </span>
@@ -193,7 +193,7 @@ const Auth = () => {
             <div className="flex justify-between items-center mb-1">
               <label className="block text-sm font-medium text-gray-400">Password</label>
               {isLogin && (
-                <button type="button" className="text-xs text-accent hover:underline">Forgot Password?</button>
+                <button type="button" className="text-xs text-accent-light hover:text-accent transition-colors">Forgot Password?</button>
               )}
             </div>
             <div className="relative">
@@ -202,13 +202,13 @@ const Auth = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full bg-navy-900 border border-navy-600 rounded-lg px-4 py-2.5 pr-12 text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent"
+                className="w-full bg-navy-900 border border-navy-600 rounded-lg px-4 py-2.5 pr-12 text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent shadow-inner"
                 placeholder="••••••••"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-accent-light transition-colors"
               >
                 {showPassword ? (
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
@@ -229,7 +229,7 @@ const Auth = () => {
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="w-full bg-navy-900 border border-navy-600 rounded-lg px-4 py-2.5 text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent"
+                  className="w-full bg-navy-900 border border-navy-600 rounded-lg px-4 py-2.5 text-white placeholder-gray-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent shadow-inner"
                   placeholder="••••••••"
                 />
                 {errors.confirmPassword && <p className="text-red-400 text-xs mt-1">{errors.confirmPassword}</p>}
@@ -244,7 +244,7 @@ const Auth = () => {
                   className="mt-1 w-4 h-4 rounded border-navy-600 bg-navy-900 text-accent focus:ring-accent"
                 />
                 <label htmlFor="terms" className="text-sm text-gray-400">
-                  I agree to the <span className="text-accent cursor-pointer hover:underline">Terms of Service</span> and <span className="text-accent cursor-pointer hover:underline">Privacy Policy</span>
+                  I agree to the <Link to="/terms" target="_blank" className="text-accent hover:text-accent-light cursor-pointer transition-colors">Terms of Service</Link> and <Link to="/privacy" target="_blank" className="text-accent hover:text-accent-light cursor-pointer transition-colors">Privacy Policy</Link>
                 </label>
               </div>
               {errors.terms && <p className="text-red-400 text-xs">{errors.terms}</p>}
@@ -254,7 +254,7 @@ const Auth = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-accent hover:bg-accent/90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3 rounded-lg transition-all shadow-lg shadow-accent/20 mt-2"
+            className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed mt-4"
           >
             {isSubmitting ? (
               <span className="flex items-center justify-center gap-2">
