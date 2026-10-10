@@ -99,7 +99,7 @@ const PayBill = () => {
 
                 <div className="bg-navy-900 border border-navy-700 rounded-lg p-3 w-full text-center mb-6">
                   <p className="text-gray-400 text-sm">Or pay using UPI ID:</p>
-                  <p className="text-white font-bold tracking-wider mt-1 text-lg select-all">123@ybl</p>
+                  <p className="text-white font-bold tracking-wider mt-1 text-lg select-all">8329789369@pthdfc</p>
                 </div>
 
                 <div className="w-full border-t border-navy-700 pt-6">
