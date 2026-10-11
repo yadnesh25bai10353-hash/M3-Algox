@@ -69,6 +69,15 @@ const Header = () => {
 
                 {isUserDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-navy-800 rounded-lg shadow-xl py-1 border border-navy-600/50 z-50 backdrop-blur-md">
+                    {user?.isAdmin && (
+                      <Link
+                        to="/admin"
+                        className="block px-4 py-2 text-sm text-accent hover:bg-navy-700 transition-colors font-semibold"
+                        onClick={() => setIsUserDropdownOpen(false)}
+                      >
+                        🔐 Admin Panel
+                      </Link>
+                    )}
                     <Link
                       to="/dashboard"
                       className="block px-4 py-2 text-sm text-gray-300 hover:bg-navy-700 hover:text-accent transition-colors"
@@ -120,6 +129,9 @@ const Header = () => {
             <div className="mt-4 pt-4 border-t border-[#1a2234]">
               {user ? (
                 <>
+                  {user?.isAdmin && (
+                    <Link to="/admin" className="block px-3 py-2 rounded-md text-base font-medium text-accent hover:text-white hover:bg-[#1a2234]" onClick={() => setIsMobileMenuOpen(false)}>🔐 Admin Panel</Link>
+                  )}
                   <Link to="/chatbot" className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-[#1a2234]" onClick={() => setIsMobileMenuOpen(false)}>💬 Chat with us</Link>
                   <Link to="/dashboard" className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-[#1a2234]" onClick={() => setIsMobileMenuOpen(false)}>Dashboard</Link>
                   <button onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-[#1a2234]">Logout</button>

@@ -13,17 +13,22 @@ const Auth = () => {
   });
   const [errors, setErrors] = useState({});
   const [firebaseError, setFirebaseError] = useState('');
+  const [resetMessage, setResetMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-  const { login, register, user, loading } = useAuth();
+  const { login, register, resetPassword, user, loading } = useAuth();
   const navigate = useNavigate();
 
   // Auto-redirect if already logged in
   useEffect(() => {
     if (!loading && user) {
-      navigate('/dashboard');
+      if (user.isAdmin) {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
+      }
     }
   }, [user, loading, navigate]);
 
@@ -31,14 +36,16 @@ const Auth = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: '' });
     setFirebaseError('');
+    setResetMessage('');
   };
 
   const validate = () => {
     const newErrors = {};
+    const emailToTest = formData.email.trim();
     if (!isLogin && !formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.email.trim()) {
+    if (!emailToTest) {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!/\S+@\S+\.\S+/.test(emailToTest)) {
       newErrors.email = 'Invalid email format';
     }
     if (!isLogin && !formData.phone.trim()) {
@@ -64,18 +71,42 @@ const Auth = () => {
       case 'auth/email-already-in-use':
         return 'This email is already registered. Please login instead.';
       case 'auth/user-not-found':
-        return 'No account found with this email. Please register first.';
+        return 'No account found with this email. Please check your email or register first.';
       case 'auth/wrong-password':
       case 'auth/invalid-credential':
-        return 'Incorrect password. Please try again.';
+        return 'Incorrect password or email. If you forgot your password, click "Forgot Password?" below.';
       case 'auth/too-many-requests':
-        return 'Too many failed attempts. Please try again later.';
+        return 'Access temporarily blocked due to many failed attempts. Please try again in a few minutes or reset your password.';
       case 'auth/weak-password':
         return 'Password is too weak. Use at least 6 characters.';
       case 'auth/invalid-email':
-        return 'Invalid email address.';
+        return 'Invalid email address format. Please check for any typos or spaces.';
+      case 'auth/network-request-failed':
+        return 'Network error. Please check your internet connection.';
       default:
-        return 'Something went wrong. Please try again.';
+        return 'Login failed. Please verify your email and password, or use Forgot Password.';
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    const email = formData.email.trim();
+    if (!email) {
+      setErrors({ ...errors, email: 'Enter your email above first to reset password' });
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setErrors({ ...errors, email: 'Enter a valid email address' });
+      return;
+    }
+
+    try {
+      setFirebaseError('');
+      setResetMessage('');
+      await resetPassword(email);
+      setResetMessage(`Password reset link sent to ${email}! Please check your Inbox and Spam folder.`);
+    } catch (err) {
+      console.error("Forgot password error:", err);
+      setFirebaseError(getFirebaseErrorMessage(err.code) || err.message);
     }
   };
 
@@ -85,16 +116,23 @@ const Auth = () => {
 
     setIsSubmitting(true);
     setFirebaseError('');
+    setResetMessage('');
 
     try {
       if (isLogin) {
-        await login(formData.email, formData.password);
+        const loggedUser = await login(formData.email.trim(), formData.password);
+        if (loggedUser?.email?.trim().toLowerCase() === 'yadnyeshmahale09@gmail.com') {
+          navigate('/admin');
+        } else {
+          navigate('/dashboard');
+        }
       } else {
-        await register(formData.name, formData.email, formData.phone, formData.password);
+        await register(formData.name.trim(), formData.email.trim(), formData.phone.trim(), formData.password);
+        navigate('/dashboard');
       }
-      navigate('/dashboard');
     } catch (error) {
-      setFirebaseError(getFirebaseErrorMessage(error.code));
+      console.error("Auth error details:", error);
+      setFirebaseError(getFirebaseErrorMessage(error.code) || error.message);
     } finally {
       setIsSubmitting(false);
     }
@@ -135,6 +173,13 @@ const Auth = () => {
         {firebaseError && (
           <div className="mb-6 p-3 bg-red-950/50 border border-red-900/50 rounded-lg text-red-400 text-sm text-center shadow-inner">
             ⚠️ {firebaseError}
+          </div>
+        )}
+
+        {/* Reset Password Success Message */}
+        {resetMessage && (
+          <div className="mb-6 p-3 bg-green-950/50 border border-green-900/50 rounded-lg text-green-400 text-sm text-center shadow-inner">
+            ✉️ {resetMessage}
           </div>
         )}
 
@@ -193,7 +238,13 @@ const Auth = () => {
             <div className="flex justify-between items-center mb-1">
               <label className="block text-sm font-medium text-gray-400">Password</label>
               {isLogin && (
-                <button type="button" className="text-xs text-accent-light hover:text-accent transition-colors">Forgot Password?</button>
+                <button
+                  type="button"
+                  onClick={handleForgotPassword}
+                  className="text-xs text-accent-light hover:text-accent transition-colors"
+                >
+                  Forgot Password?
+                </button>
               )}
             </div>
             <div className="relative">
