@@ -20,6 +20,7 @@ const AdminPanel = () => {
   const [users, setUsers] = useState([]);
   const [bills, setBills] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [firestoreError, setFirestoreError] = useState('');
 
   // Bill form state
   const [selectedUserId, setSelectedUserId] = useState('');
@@ -36,6 +37,7 @@ const AdminPanel = () => {
     const unsubUsers = onSnapshot(
       collection(db, 'users'),
       (snapshot) => {
+        setFirestoreError('');
         const fetchedUsers = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
         fetchedUsers.sort((a, b) => {
           const timeA = a.createdAt?.toMillis ? a.createdAt.toMillis() : (a.createdAt ? new Date(a.createdAt).getTime() : 0);
@@ -46,6 +48,11 @@ const AdminPanel = () => {
       },
       (error) => {
         console.error("Error fetching users from Firestore:", error);
+        if (error.code === 'permission-denied') {
+          setFirestoreError('Firebase Firestore Rules Error: "permission-denied". Firebase Console me Firestore Rules ko allow karna padega.');
+        } else {
+          setFirestoreError(error.message);
+        }
       }
     );
 
@@ -80,7 +87,8 @@ const AdminPanel = () => {
     return <Navigate to="/" />;
   }
 
-  const totalUsers = users.filter(u => u.role !== 'admin').length;
+  const clientUsers = users.filter(u => u.email?.toLowerCase() !== user?.email?.toLowerCase());
+  const totalUsers = clientUsers.length;
   const botPurchases = users.filter(u => u.botPurchased).length;
   const pendingBills = bills.filter(b => b.status === 'pending').length;
   const totalRevenue = bills.filter(b => b.status === 'paid').reduce((sum, b) => sum + (b.amount || 0), 0);
@@ -371,7 +379,7 @@ const AdminPanel = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-navy-700/30">
-                  {users.filter(u => u.role !== 'admin').map(u => (
+                  {clientUsers.map(u => (
                     <tr key={u.id} className="hover:bg-navy-700/20 transition-colors">
                       <td className="px-4 py-3 text-white font-medium">{u.name || '—'}</td>
                       <td className="px-4 py-3 text-gray-400">{u.email}</td>
@@ -406,14 +414,14 @@ const AdminPanel = () => {
                   ))}
                 </tbody>
               </table>
-              {users.filter(u => u.role !== 'admin').length === 0 && (
+              {clientUsers.length === 0 && (
                 <p className="text-gray-500 text-sm text-center py-8">No users registered yet.</p>
               )}
             </div>
 
             {/* Mobile Cards */}
             <div className="md:hidden space-y-3">
-              {users.filter(u => u.role !== 'admin').map(u => (
+              {clientUsers.map(u => (
                 <div key={u.id} className="bg-navy-800 border border-navy-700/50 rounded-xl p-4 space-y-2">
                   <div className="flex justify-between items-start">
                     <div>
@@ -448,7 +456,7 @@ const AdminPanel = () => {
                   </button>
                 </div>
               ))}
-              {users.filter(u => u.role !== 'admin').length === 0 && (
+              {clientUsers.length === 0 && (
                 <p className="text-gray-500 text-sm text-center py-8">No users registered yet.</p>
               )}
             </div>
@@ -481,7 +489,7 @@ const AdminPanel = () => {
                     className="w-full bg-navy-900 border border-navy-600 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent"
                   >
                     <option value="">— Select a client —</option>
-                    {users.filter(u => u.role !== 'admin').map(u => (
+                    {clientUsers.map(u => (
                       <option key={u.id} value={u.id}>
                         {u.name || u.email} {u.phone ? `(${u.phone})` : ''}
                       </option>
@@ -725,7 +733,18 @@ const AdminPanel = () => {
         </header>
 
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-6xl mx-auto space-y-6">
+            {firestoreError && (
+              <div className="p-4 bg-red-950/70 border border-red-800 rounded-xl text-red-200 text-sm shadow-xl flex flex-col gap-2">
+                <div className="flex items-center gap-2 font-bold text-red-400">
+                  <span className="text-xl">⚠️</span> {firestoreError}
+                </div>
+                <p className="text-gray-300 text-xs">
+                  Firebase Firestore ke <strong>Rules</strong> expired ya blocked hain, isliye database se users aur bills load nahi ho pa rahe hain. 
+                  Firebase Console me jaakar <strong>Firestore Database &gt; Rules</strong> me read/write allow karein.
+                </p>
+              </div>
+            )}
             {renderContent()}
           </div>
         </div>
