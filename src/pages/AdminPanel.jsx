@@ -7,6 +7,7 @@ import {
   getDocs,
   addDoc,
   updateDoc,
+  deleteDoc,
   doc,
   serverTimestamp,
   query,
@@ -149,6 +150,17 @@ const AdminPanel = () => {
     }
   };
 
+  const handleDeleteBill = async (billId, userName, amount) => {
+    const confirmDelete = window.confirm(`Are you sure you want to delete this bill of ₹${amount?.toLocaleString('en-IN') || 0} for ${userName || 'user'}?`);
+    if (!confirmDelete) return;
+
+    try {
+      await deleteDoc(doc(db, 'bills', billId));
+    } catch (err) {
+      alert('Error deleting bill: ' + err.message);
+    }
+  };
+
   const handleToggleBotStatus = async (userId, currentStatus) => {
     try {
       await updateDoc(doc(db, 'users', userId), {
@@ -249,14 +261,23 @@ const AdminPanel = () => {
                           }`}>
                             {bill.status === 'paid' ? '✅ Paid' : '⏳ Pending'}
                           </span>
-                          {bill.status !== 'pending' && (
+                          <div className="flex items-center gap-2">
+                            {bill.status !== 'pending' && (
+                              <button
+                                onClick={() => handleMarkUnpaid(bill.id)}
+                                className="px-3 py-1.5 bg-gray-500/20 text-gray-400 hover:bg-gray-500/30 rounded-lg text-xs font-medium"
+                              >
+                                Undo
+                              </button>
+                            )}
                             <button
-                              onClick={() => handleMarkUnpaid(bill.id)}
-                              className="px-3 py-1.5 bg-gray-500/20 text-gray-400 hover:bg-gray-500/30 rounded-lg text-xs font-medium"
+                              onClick={() => handleDeleteBill(bill.id, bill.userName, bill.amount)}
+                              className="px-2.5 py-1.5 bg-red-500/20 text-red-400 hover:bg-red-500/30 rounded-lg text-xs font-medium transition-colors"
+                              title="Delete Bill"
                             >
-                              Undo
+                              🗑️ Delete
                             </button>
-                          )}
+                          </div>
                         </div>
                         
                         {bill.status === 'pending' && (
@@ -583,7 +604,7 @@ const AdminPanel = () => {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-gray-500 text-xs">{formatDate(bill.createdAt)}</td>
-                      <td className="px-4 py-3 text-center flex justify-center gap-2">
+                      <td className="px-4 py-3 text-center flex justify-center items-center gap-2">
                         {bill.status === 'pending' ? (
                           <>
                             <button
@@ -608,6 +629,13 @@ const AdminPanel = () => {
                             Undo
                           </button>
                         )}
+                        <button
+                          onClick={() => handleDeleteBill(bill.id, bill.userName, bill.amount)}
+                          className="px-2.5 py-1 bg-red-500/20 text-red-400 hover:bg-red-500/30 rounded text-xs font-medium transition-colors"
+                          title="Delete Bill"
+                        >
+                          🗑️
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -641,14 +669,23 @@ const AdminPanel = () => {
                         </span>
                         <span className="text-gray-500 text-xs">{formatDate(bill.createdAt)}</span>
                       </div>
-                      {bill.status !== 'pending' && (
+                      <div className="flex items-center gap-2">
+                        {bill.status !== 'pending' && (
+                          <button
+                            onClick={() => handleMarkUnpaid(bill.id)}
+                            className="px-3 py-1.5 bg-gray-500/20 text-gray-400 hover:bg-gray-500/30 rounded-lg text-xs font-medium"
+                          >
+                            Undo
+                          </button>
+                        )}
                         <button
-                          onClick={() => handleMarkUnpaid(bill.id)}
-                          className="px-3 py-1.5 bg-gray-500/20 text-gray-400 hover:bg-gray-500/30 rounded-lg text-xs font-medium"
+                          onClick={() => handleDeleteBill(bill.id, bill.userName, bill.amount)}
+                          className="px-2.5 py-1.5 bg-red-500/20 text-red-400 hover:bg-red-500/30 rounded-lg text-xs font-medium"
+                          title="Delete Bill"
                         >
-                          Undo
+                          🗑️ Delete
                         </button>
-                      )}
+                      </div>
                     </div>
                     {bill.status === 'pending' && (
                       <div className="flex gap-2 w-full mt-1">
