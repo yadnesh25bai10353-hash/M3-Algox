@@ -34,16 +34,34 @@ const AdminPanel = () => {
     if (!user?.isAdmin) return;
 
     const unsubUsers = onSnapshot(
-      query(collection(db, 'users'), orderBy('createdAt', 'desc')),
+      collection(db, 'users'),
       (snapshot) => {
-        setUsers(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
+        const fetchedUsers = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+        fetchedUsers.sort((a, b) => {
+          const timeA = a.createdAt?.toMillis ? a.createdAt.toMillis() : (a.createdAt ? new Date(a.createdAt).getTime() : 0);
+          const timeB = b.createdAt?.toMillis ? b.createdAt.toMillis() : (b.createdAt ? new Date(b.createdAt).getTime() : 0);
+          return timeB - timeA;
+        });
+        setUsers(fetchedUsers);
+      },
+      (error) => {
+        console.error("Error fetching users from Firestore:", error);
       }
     );
 
     const unsubBills = onSnapshot(
-      query(collection(db, 'bills'), orderBy('createdAt', 'desc')),
+      collection(db, 'bills'),
       (snapshot) => {
-        setBills(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
+        const fetchedBills = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+        fetchedBills.sort((a, b) => {
+          const timeA = a.createdAt?.toMillis ? a.createdAt.toMillis() : (a.createdAt ? new Date(a.createdAt).getTime() : 0);
+          const timeB = b.createdAt?.toMillis ? b.createdAt.toMillis() : (b.createdAt ? new Date(b.createdAt).getTime() : 0);
+          return timeB - timeA;
+        });
+        setBills(fetchedBills);
+      },
+      (error) => {
+        console.error("Error fetching bills from Firestore:", error);
       }
     );
 
